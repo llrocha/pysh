@@ -1,24 +1,24 @@
 import os
 
 """
-    cd: change the current working directory
-    echo: print a message to the terminal
-    alias: create a shortcut for a longer command
-    history: display a list of previously executed commands
-    export: set an environment variable
-    unset: remove an environment variable
-    source: execute commands from a file in the current shell
-    exit: exit the current shell
-    pwd: print the current working directory
-    type: determine whether a command is a shell built-in or an external executable
+    cd: change the current working directory, module CdBuiltin
+    echo: print a message to the terminal, module EchoBuiltin
+    alias: create a shortcut for a longer command, module AliasBuiltin
+    history: display a list of previously executed commands, module HistoryBuiltin
+    export: set an environment variable, module ExportBuiltin
+    unset: remove an environment variable, module UnsetBuiltin
+    source: execute commands from a file in the current shell, module SourceBuiltin
+    exit: exit the current shell, module ExitBuiltin
+    pwd: print the current working directory, module PwdBuiltin
+    type: determine whether a command is a shell built-in or an external executable, module TypeBuiltin
 """
 
-class not_implemented_builtin:
+class NotImplementedBuiltin:
     def run(self, arguments):
         print(f'builtin command [{arguments[0]}] is not implemented')
 
 
-class cd_builtin:
+class CdBuiltin:
     def run(self, arguments):
         if len(arguments) == 2:
             os.chdir(arguments[1])
@@ -27,22 +27,22 @@ class cd_builtin:
             return 1
 
 
-class echo_builtin:
+class EchoBuiltin:
     def run(self, arguments):
         print(' '.join(arguments[1:]))
 
 
-class alias_builtin:
+class AliasBuiltin:
     def run(self, arguments):
         pass
 
 
-class history_builtin:
+class HistoryBuiltin:
     def run(self, arguments):
         pass
 
 
-class exit_builtin:
+class ExitBuiltin:
     def run(self, arguments):
         if len(arguments) > 1:
             exit_value = int(arguments[1])
@@ -51,32 +51,32 @@ class exit_builtin:
         exit(exit_value)
 
 
-class export_builtin:
+class ExportBuiltin:
     def run(self, arguments):
         pass
 
 
-class unset_builtin:
+class UnsetBuiltin:
     def run(self, arguments):
         pass
 
 
-class source_builtin:
+class SourceBuiltin:
     def run(self, arguments):
         pass
 
 
-class pwd_builtin:
+class PwdBuiltin:
     def run(self, arguments):
         pass
 
 
-class type_builtin:
+class TypeBuiltin:
     def run(self, arguments):
         pass
 
 
-class builtins:
+class Builtins:
     def __init__(self) -> None:
         self.builtins_cmds = [
             'cd', 'echo', 'alias', 'history', 'export',
@@ -84,34 +84,34 @@ class builtins:
         ]
 
     def is_builtin(self, command):
-        if(type(command) == list):
+        if type(command) == list:
             return command[0].strip() in self.builtins_cmds
         else:
             return command.strip() in self.builtins_cmds
-    
+
     def launch_builtin(self, arguments):
         command = arguments[0].strip()
 
         if command == 'cd':
-            cd_builtin().run(arguments)
+            CdBuiltin().run(arguments)
         elif command == 'echo':
-            echo_builtin().run(arguments)
+            EchoBuiltin().run(arguments)
         elif command == 'alias':
-            alias_builtin().run(arguments)
+            AliasBuiltin().run(arguments)
         elif command == 'history':
-            history_builtin().run(arguments)
+            HistoryBuiltin().run(arguments)
         elif command == 'export':
-            export_builtin().run(arguments)
+            ExportBuiltin().run(arguments)
         elif command == 'unset':
-            unset_builtin().run(arguments)
+            UnsetBuiltin().run(arguments)
         elif command == 'source':
-            source_builtin().run(arguments)
+            SourceBuiltin().run(arguments)
         elif command == 'exit':
-            exit_builtin().run(arguments)
+            ExitBuiltin().run(arguments)
         elif command == 'pwd':
-            pwd_builtin().run(arguments)
+            PwdBuiltin().run(arguments)
         elif command == 'type':
-            type_builtin().run(arguments)
+            TypeBuiltin().run(arguments)
         else:
             raise NotImplementedError(command)
 
