@@ -1,3 +1,5 @@
+import os
+
 """
     cd: change the current working directory
     echo: print a message to the terminal
@@ -16,6 +18,30 @@ class not_implemented_builtin:
         print(f'builtin command [{arguments[0]}] is not implemented')
 
 
+class cd_builtin:
+    def run(self, arguments):
+        if len(arguments) == 2:
+            os.chdir(arguments[1])
+            return 0
+        else:
+            return 1
+
+
+class echo_builtin:
+    def run(self, arguments):
+        print(' '.join(arguments[1:]))
+
+
+class alias_builtin:
+    def run(self, arguments):
+        pass
+
+
+class history_builtin:
+    def run(self, arguments):
+        pass
+
+
 class exit_builtin:
     def run(self, arguments):
         if len(arguments) > 1:
@@ -23,6 +49,31 @@ class exit_builtin:
         else:
             exit_value = 0
         exit(exit_value)
+
+
+class export_builtin:
+    def run(self, arguments):
+        pass
+
+
+class unset_builtin:
+    def run(self, arguments):
+        pass
+
+
+class source_builtin:
+    def run(self, arguments):
+        pass
+
+
+class pwd_builtin:
+    def run(self, arguments):
+        pass
+
+
+class type_builtin:
+    def run(self, arguments):
+        pass
 
 
 class builtins:
@@ -42,25 +93,25 @@ class builtins:
         command = arguments[0].strip()
 
         if command == 'cd':
-            not_implemented_builtin().run(arguments)
+            cd_builtin().run(arguments)
         elif command == 'echo':
-            not_implemented_builtin().run(arguments)
+            echo_builtin().run(arguments)
         elif command == 'alias':
-            not_implemented_builtin().run(arguments)
+            alias_builtin().run(arguments)
         elif command == 'history':
-            not_implemented_builtin().run(arguments)
+            history_builtin().run(arguments)
         elif command == 'export':
-            not_implemented_builtin().run(arguments)
+            export_builtin().run(arguments)
         elif command == 'unset':
-            not_implemented_builtin().run(arguments)
+            unset_builtin().run(arguments)
         elif command == 'source':
-            not_implemented_builtin().run(arguments)
+            source_builtin().run(arguments)
         elif command == 'exit':
             exit_builtin().run(arguments)
         elif command == 'pwd':
-            not_implemented_builtin().run(arguments)
+            pwd_builtin().run(arguments)
         elif command == 'type':
-            not_implemented_builtin().run(arguments)
+            type_builtin().run(arguments)
         else:
             raise NotImplementedError(command)
 
