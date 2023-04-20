@@ -2,14 +2,14 @@
 Shell interpreter written in Python
 """
 
-from pysh_builtins import builtins
-from pysh_launcher import launcher
+from pysh_builtins import Builtins
+from pysh_launcher import Launcher
 
 
 PATH='/bin'
 PROMPT = '> '
-builtin_cmds = builtins()
-cmd_launcher = launcher()
+builtin_cmds = Builtins()
+cmd_launcher = Launcher()
 
 
 
