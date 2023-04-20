@@ -1,9 +1,9 @@
 import os
 
 
-class launcher():
+class Launcher():
     def launch_cmd(self, arguments):
-        if(len(arguments)):
+        if len(arguments):
             pid = os.fork()
             if pid == 0:
                 print('\nchild process, pid:', os.getpid())
