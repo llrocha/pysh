@@ -2,27 +2,31 @@
 Shell interpreter written in Python
 """
 
-from pysh_builtins import Builtins
-from pysh_launcher import Launcher
+from pysh_builtins import BuiltinLauncher
+from pysh_launcher import CommandLauncher
 
 
 PATH='/bin'
 PROMPT = '> '
-builtin_cmds = Builtins()
-cmd_launcher = Launcher()
+builtin_launcher = BuiltinLauncher()
+cmd_launcher = CommandLauncher()
 
 
 
 def execute_cmd(arguments):
     if len(arguments):
-        if builtin_cmds.is_builtin(arguments=arguments):
-            builtin_cmds.launch_builtin(arguments=arguments)
+        if builtin_launcher.is_builtin(arguments):
+            builtin_launcher.launch_builtin(arguments)
         else:
-            cmd_launcher.launch_cmd(arguments=arguments)
+            cmd_launcher.launch_cmd(arguments)
 
 
 if __name__ == '__main__':
     while True:
-        line = input(PROMPT)
-        arguments = line.split()
-        execute_cmd(arguments=arguments)
+        try:
+            line = input(PROMPT)
+            execute_cmd(line.split())
+        except NotImplementedError as e:
+            print(f'{e} is not implemented yet')
+        except Exception as e:
+            print(e)

@@ -1,5 +1,7 @@
 import os
 
+from abc import ABC, abstractmethod
+
 """
     cd: change the current working directory, module CdBuiltin
     echo: print a message to the terminal, module EchoBuiltin
@@ -13,12 +15,13 @@ import os
     type: determine whether a command is a shell built-in or an external executable, module TypeBuiltin
 """
 
-class NotImplementedBuiltin:
+class BuiltinStrategy(ABC):
+    @abstractmethod
     def run(self, arguments):
-        print(f'builtin command [{arguments[0]}] is not implemented')
+        pass
 
 
-class CdBuiltin:
+class CdBuiltin(BuiltinStrategy):
     def run(self, arguments):
         if len(arguments) == 2:
             os.chdir(arguments[1])
@@ -27,19 +30,19 @@ class CdBuiltin:
             return 1
 
 
-class EchoBuiltin:
+class EchoBuiltin(BuiltinStrategy):
     def run(self, arguments):
         print(' '.join(arguments[1:]))
 
 
-class AliasBuiltin:
+class AliasBuiltin(BuiltinStrategy):
     def run(self, arguments):
-        pass
+        raise NotImplementedError('alias')
 
 
-class HistoryBuiltin:
+class HistoryBuiltin(BuiltinStrategy):
     def run(self, arguments):
-        pass
+        raise NotImplementedError('history')
 
 
 class ExitBuiltin:
@@ -51,67 +54,57 @@ class ExitBuiltin:
         exit(exit_value)
 
 
-class ExportBuiltin:
+class ExportBuiltin(BuiltinStrategy):
     def run(self, arguments):
-        pass
+        raise NotImplementedError('export')
 
 
-class UnsetBuiltin:
+class UnsetBuiltin(BuiltinStrategy):
     def run(self, arguments):
-        pass
+        raise NotImplementedError('unset')
 
 
-class SourceBuiltin:
+class SourceBuiltin(BuiltinStrategy):
     def run(self, arguments):
-        pass
+        raise NotImplementedError('source')
 
 
-class PwdBuiltin:
+class PwdBuiltin(BuiltinStrategy):
     def run(self, arguments):
-        pass
+        raise NotImplementedError('pwd')
 
 
-class TypeBuiltin:
+class TypeBuiltin(BuiltinStrategy):
     def run(self, arguments):
-        pass
+        raise NotImplementedError('type')
 
 
-class Builtins:
+class BuiltinLauncher:
     def __init__(self) -> None:
-        self.builtins_cmds = [
-            'cd', 'echo', 'alias', 'history', 'export',
-            'unset', 'source', 'exit', 'pwd', 'type'
-        ]
+        self.builtins_cmds = {
+            'cd': CdBuiltin(),
+            'echo': EchoBuiltin(),
+            'alias': AliasBuiltin(),
+            'history': HistoryBuiltin(),
+            'export': ExportBuiltin(),
+            'unset': UnsetBuiltin(),
+            'source': SourceBuiltin(),
+            'exit': ExitBuiltin(),
+            'pwd': PwdBuiltin(),
+            'type': TypeBuiltin(),
+        }
 
     def is_builtin(self, command):
+        internal_command = command
         if type(command) == list:
-            return command[0].strip() in self.builtins_cmds
-        else:
-            return command.strip() in self.builtins_cmds
+            internal_command = command[0]
+        return internal_command.strip() in self.builtins_cmds
 
     def launch_builtin(self, arguments):
-        command = arguments[0].strip()
-
-        if command == 'cd':
-            CdBuiltin().run(arguments)
-        elif command == 'echo':
-            EchoBuiltin().run(arguments)
-        elif command == 'alias':
-            AliasBuiltin().run(arguments)
-        elif command == 'history':
-            HistoryBuiltin().run(arguments)
-        elif command == 'export':
-            ExportBuiltin().run(arguments)
-        elif command == 'unset':
-            UnsetBuiltin().run(arguments)
-        elif command == 'source':
-            SourceBuiltin().run(arguments)
-        elif command == 'exit':
-            ExitBuiltin().run(arguments)
-        elif command == 'pwd':
-            PwdBuiltin().run(arguments)
-        elif command == 'type':
-            TypeBuiltin().run(arguments)
+        command_name = arguments[0].strip()
+        if command_name in self.builtins_cmds:
+            builtin_strategy = self.builtins_cmds[command_name]
+            builtin_strategy.run(arguments)
         else:
-            raise NotImplementedError(command)
+            raise NotImplementedError(command_name)
 
