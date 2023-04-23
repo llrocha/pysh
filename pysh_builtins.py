@@ -71,7 +71,7 @@ class SourceBuiltin(BuiltinStrategy):
 
 class PwdBuiltin(BuiltinStrategy):
     def run(self, arguments):
-        raise NotImplementedError('pwd')
+        print(os.getcwd())
 
 
 class TypeBuiltin(BuiltinStrategy):
