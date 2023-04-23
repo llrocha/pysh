@@ -1,7 +1,7 @@
 import os
 
 
-class Launcher():
+class CommandLauncher():
     def launch_cmd(self, arguments):
         if len(arguments):
             pid = os.fork()
