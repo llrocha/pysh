@@ -42,7 +42,6 @@ def execute_cmd(arguments):
 if __name__ == '__main__':
     while True:
         try:
-            print(COMMAND)
             line = input(PROMPT)
             if line[-1:] != '\\':
                 COMMAND += line
