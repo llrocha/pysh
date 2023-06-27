@@ -7,3 +7,6 @@ class CommandLauncher():
             process = subprocess.Popen(arguments)
             pid = process.pid
             process.wait()
+            return process.returncode
+        else:
+            return 0
