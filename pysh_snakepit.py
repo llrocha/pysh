@@ -1,4 +1,6 @@
 #: pysh_snakepit.py
+"""A python command launcher"""
+
 import ast
 import subprocess
 

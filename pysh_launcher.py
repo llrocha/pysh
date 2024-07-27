@@ -1,6 +1,9 @@
 #: pysh_launcher.py
+"""Command launcher to run a shell commands"""
+
 import subprocess
 
+# pylint: disable=too-few-public-methods
 
 class CommandLauncher():
     """command launcher"""

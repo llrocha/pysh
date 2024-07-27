@@ -1,14 +1,18 @@
 #: pysh_builtins.py
+"""This class is built to run built-in command shell"""
+
 import os
 import sys
 
 from abc import ABC, abstractmethod
 
+# pylint: disable=too-few-public-methods
 
 class BuiltinStrategy(ABC):
+    """Abstract base class for built in commands"""
     @abstractmethod
     def run(self, arguments):
-        pass
+        """abstract run method"""
 
 
 class CdBuiltin(BuiltinStrategy):
@@ -89,7 +93,8 @@ class BuiltinLauncher:
         source: execute commands from a file in the current shell, module SourceBuiltin
         exit: exit the current shell, module ExitBuiltin
         pwd: print the current working directory, module PwdBuiltin
-        type: determine whether a command is a shell built-in or an external executable, module TypeBuiltin
+        type: determine whether a command is a shell built-in or an external executable
+        module TypeBuiltin
     """
     def __init__(self) -> None:
         self.builtins_cmds = {
