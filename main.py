@@ -1,3 +1,4 @@
+#: main.py
 """
 Shell interpreter written in Python
 """
@@ -16,6 +17,7 @@ cmd_launcher = CommandLauncher()
 snake_launcher = SnakeLauncher()
 
 def execute_cmd(arguments):
+    """Execute shell command"""
     if len(arguments):
         if builtin_launcher.is_builtin(arguments):
             builtin_launcher.launch_builtin(arguments)
@@ -38,6 +40,4 @@ if __name__ == '__main__':
         except NotImplementedError as e:
             print(f'{e} is not implemented yet')
         except KeyboardInterrupt as e:
-            print(e)
-        except Exception as e:
             print(e)
