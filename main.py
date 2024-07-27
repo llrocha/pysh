@@ -1,8 +1,5 @@
 #: main.py
-"""
-Shell interpreter written in Python
-"""
-
+"""Shell interpreter written in Python"""
 
 from pysh_builtins import BuiltinLauncher
 from pysh_launcher import CommandLauncher
@@ -25,7 +22,6 @@ def execute_cmd(arguments):
             snake_launcher.run_python(arguments)
         else:
             cmd_launcher.launch_cmd(arguments)
-
 
 if __name__ == '__main__':
     while True:
