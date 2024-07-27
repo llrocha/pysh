@@ -1,4 +1,6 @@
 #: waitpid_view.py
+""" Wait pid test"""
+
 import os
 import sys
 import time

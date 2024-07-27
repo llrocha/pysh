@@ -18,6 +18,7 @@ class BuiltinStrategy(ABC):
 class CdBuiltin(BuiltinStrategy):
     """CdBuiltin: change the current working directory"""
     def run(self, arguments):
+        """run cd command"""
         if len(arguments) == 2:
             os.chdir(arguments[1])
             return 0
@@ -27,24 +28,28 @@ class CdBuiltin(BuiltinStrategy):
 class EchoBuiltin(BuiltinStrategy):
     """EchoBuiltin: print a message to the terminal"""
     def run(self, arguments):
+        """run echo command"""
         print(' '.join(arguments[1:]))
 
 
 class AliasBuiltin(BuiltinStrategy):
     """AliasBuiltin: create a shortcut for a longer command"""
     def run(self, arguments):
+        """run alias command"""
         raise NotImplementedError('alias')
 
 
 class HistoryBuiltin(BuiltinStrategy):
     """HistoryBuiltin: display a list of previously executed commands"""
     def run(self, arguments):
+        """run history command"""
         raise NotImplementedError('history')
 
 
 class ExitBuiltin:
     """ExitBuiltin: exit the current shell"""
     def run(self, arguments):
+        """run exit command"""
         if len(arguments) > 1:
             exit_value = int(arguments[1])
         else:
@@ -55,30 +60,35 @@ class ExitBuiltin:
 class ExportBuiltin(BuiltinStrategy):
     """ExportBuiltin: set an environment variable"""
     def run(self, arguments):
+        """run export command"""
         raise NotImplementedError('export')
 
 
 class UnsetBuiltin(BuiltinStrategy):
     """UnsetBuiltin: remove an environment variable"""
     def run(self, arguments):
+        """run unset command"""
         raise NotImplementedError('unset')
 
 
 class SourceBuiltin(BuiltinStrategy):
     """SourceBuiltin: execute commands from a file in the current shell"""
     def run(self, arguments):
+        """run source command"""
         raise NotImplementedError('source')
 
 
 class PwdBuiltin(BuiltinStrategy):
     """PwdBuiltin: print the current working directory"""
     def run(self, arguments):
+        """run pwd command"""
         print(os.getcwd())
 
 
 class TypeBuiltin(BuiltinStrategy):
     """determine whether a command is a shell built-in or an external executable"""
     def run(self, arguments):
+        """run check type of command"""
         raise NotImplementedError('type')
 
 
